@@ -22,17 +22,19 @@ DDPM object를 생성하면, 인스턴스 변수 netG를 정의하는 과정에�
 dataset을 다운받아 곧바로 infer.py를 실행시켜 보았습니다.
 깃허브 이슈에 올라온 문제와 동일한 증상이 저에게도 발견되었습니다.
 
-
+![try_1](https://github.com/juni1119/take_home_project/raw/main/try_1.png)
 
 두 번째 시도,
 코드를 읽다보니 config에서 stage 2의 pretrained_weight를 잘못된 경로로 사용하고 있다는 것을 알게 되었습니다. github에서 해당 weight 파일을 다운받아 stage 1과 stage 2에 정확한 경로를 지정해주었습니다. 하지만 여전히 noise 문제는 해결되지 않았습니다.
 
+![try_1](https://github.com/juni1119/take_home_project/raw/main/try_2.png)
 
 세 번째 시도.
 이 과정에서 최종 이미지 하나를 출력하는데 1시간 30분이 걸렸고, 그 과정을 줄이고자 했습니다. 그래서 샘플링 수와 배치 사이즈를 대폭 줄였습니다. 이후 10분 가량으로 출력 시간이 단축되었지만, 여전히 노이즈가 출력되는 문제가 해결되지 않았습니다.
 
+![try_1](https://github.com/juni1119/take_home_project/raw/main/try_3.png)
 
 네 번째 시도.
 그 이후에 stage 1이 만들어내는 condition이 어떻게 출력되는지 확인한다면, stage 1과 stage 2 중 어디에서 문제가 발생했는지 알 수 있을거라 생각했습니다. 그래서 J와 trmap 이미지를 저장할 수 있도록 self.output과 self.out_T를 save_image 해보았습니다. 그 때 아래와 같이 비교적 정상적인 이미지가 만들어짐을 확인할 수 있었습니다. 그래서 문제는 stage 2에 존재할 가능성이 높다는 결론을 내릴 수 있었습니다.
 
-
+![try_1](https://github.com/juni1119/take_home_project/raw/main/try_4.png)
